@@ -1,0 +1,42 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <div class="row mb-4">
+        <div class="col-md-6 text-md-end">
+          <h2><%= display_name(@user) %></h2>
+        </div>
+      <% @posts.each do |post| %>
+        <div class="col-md-6">
+          <%= link_to 'Edit Account', edit_user_registration_path, class: 'btn btn-primary' if current_user == post.user %>
+        </div>
+      </div>
+
+
+        <div class="card mb-3">
+          <div class="card-body">
+            <h5 class="card-title"><%= post.title %></h5>
+            <p class="card-text"><%= post.body %></p>
+
+            <% if current_user == post.user %>
+                <div class="btn-group me-2" role="group">
+                <button id="postActionsDropdown" type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Actions
+                </button>
+                <div class="dropdown-menu" aria-labelledby="postActionsDropdown">
+                  <%= link_to edit_post_path(post), class: "dropdown-item" do %>
+                    <i class="bi bi-pencil-fill me-2"></i>
+                    Edit
+                  <% end %>
+                  <%= button_to post, method: :delete, class: "dropdown-item", data: { confirm: "Are you sure you want to delete this post?" } do %>
+                    <i class="bi bi-trash-fill me-2"></i>
+                    Destroy
+                  <% end %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
