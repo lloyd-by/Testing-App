@@ -10,9 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_13_014036) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_13_064730) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "field_test_events", force: :cascade do |t|
+    t.bigint "field_test_membership_id"
+    t.string "name"
+    t.datetime "created_at"
+    t.index ["field_test_membership_id"], name: "index_field_test_events_on_field_test_membership_id"
+  end
+
+  create_table "field_test_memberships", force: :cascade do |t|
+    t.string "participant_type"
+    t.string "participant_id"
+    t.string "experiment"
+    t.string "variant"
+    t.datetime "created_at"
+    t.boolean "converted", default: false
+    t.index ["experiment", "created_at"], name: "index_field_test_memberships_on_experiment_and_created_at"
+    t.index ["participant_type", "participant_id", "experiment"], name: "index_field_test_memberships_on_participant", unique: true
+  end
 
   create_table "posts", force: :cascade do |t|
     t.string "title"

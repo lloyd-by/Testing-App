@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :users do
     get 'profile/:email', to: 'profiles#show', as: 'profile'
   end
+  mount FieldTest::Engine, at: "field_test"
 
   root "posts#index"
 end

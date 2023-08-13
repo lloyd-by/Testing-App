@@ -1,0 +1,3 @@
+class FieldTestMembership < ApplicationRecord
+
+end 

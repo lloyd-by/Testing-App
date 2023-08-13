@@ -1,25 +1,22 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show]
+  before_action :authenticate_user!,  except: [:index, :show]
+  before_action :set_field_test, only: %i[ index ]
   before_action :set_post, only: %i[ show edit update destroy ]
-  # GET /posts or /posts.json
+
   def index
     @posts = Post.where.not(user_id: nil ).order(updated_at: :desc)
   end
 
-  # GET /posts/1 or /posts/1.json
   def show
   end
 
-  # GET /posts/new
   def new
     @post = Post.new
   end
 
-  # GET /posts/1/edit
   def edit
   end
 
-  # POST /posts or /posts.json
   def create
     @post = current_user.posts.build(post_params)
     respond_to do |format|
@@ -33,7 +30,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /posts/1 or /posts/1.json
   def update
     respond_to do |format|
       if @post.update(post_params)
@@ -46,7 +42,6 @@ class PostsController < ApplicationController
     end
   end
 
-  # DELETE /posts/1 or /posts/1.json
   def destroy
     @post.destroy
 
@@ -57,13 +52,18 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
     def post_params
       params.require(:post).permit(:title, :body)
+    end
+
+    def set_field_test
+      if current_user.present?
+        @button_color = FieldTest::Experiment.find(:button_color).variant(current_user)
+        field_test_converted(:button_color, participant: current_user)
+      end
     end
 end

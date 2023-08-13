@@ -79,3 +79,5 @@ gem "faker", "~> 3.2"
 gem "devise", "~> 4.9"
 
 gem "sass", "~> 3.7"
+
+gem "field_test", "~> 0.6.0"
