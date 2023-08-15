@@ -5,11 +5,11 @@
         <div class="col-md-6 text-md-end">
           <h2><%= display_name(@user) %></h2>
         </div>
-      <% @posts.each do |post| %>
-        <div class="col-md-6">
-          <%= link_to 'Edit Account', edit_user_registration_path, class: 'btn btn-primary' if current_user == post.user %>
-        </div>
+          <div class="col-md-6">
+            <%= link_to 'Edit Account', edit_user_registration_path, class: 'btn btn-primary' if current_user == @posts.first.user %>
+          </div>
       </div>
+      <% @posts.each do |post| %>
 
 
         <div class="card mb-3">

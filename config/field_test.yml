@@ -8,4 +8,4 @@ experiments:
       - goal_error
 
 exclude:
-  bots: true
+  bots: false
