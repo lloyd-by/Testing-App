@@ -1,11 +1,7 @@
 experiments:
   button_color:
     variants:
-      - success
-      - error
-    goals:
-      - goal_success
-      - goal_error
-
+      - enable
+      - disable
 exclude:
   bots: false

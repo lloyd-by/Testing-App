@@ -1,6 +1,5 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!,  except: [:index, :show]
-  before_action :set_field_test, only: %i[ index ]
   before_action :set_post, only: %i[ show edit update destroy ]
 
   def index
@@ -60,10 +59,4 @@ class PostsController < ApplicationController
       params.require(:post).permit(:title, :body)
     end
 
-    def set_field_test
-      if current_user.present?
-        @button_color = FieldTest::Experiment.find(:button_color).variant(current_user)
-        field_test_converted(:button_color, participant: current_user)
-      end
-    end
 end

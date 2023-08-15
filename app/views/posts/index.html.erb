@@ -10,10 +10,8 @@
       <div class="card mb-3">
         <div class="card-body">
           <%= render post %>
-          <% if @button_color == 'success'%>
+          <% if user_signed_in? && FieldTestMembership.enabled?(:button_color, current_user)%>
             <p class="mt-3"><%= link_to "Show this post", post, class: "btn btn-primary" %></p>
-          <% elsif @button_color == 'error' %>
-            <p class="mt-3"><%= link_to "Show this post", post, class: "btn btn-secondary" %></p>
           <% else %>
             <p class="mt-3"><%= link_to "Show this post", post %></p>
           <% end %>
@@ -21,5 +19,4 @@
       </div>
     <% end %>
   </div>
-
 </div>
